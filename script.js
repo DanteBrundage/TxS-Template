@@ -16,29 +16,40 @@
 
 // those are variables selecting main elements on the page
 
-var resultBox = document.getElementById('result')
-var titleBox = document.getElementById('title')
-var voteBox = document.getElementById('vote-box')
-var mainImage = document.getElementById('main-image')
-var youImage = document.getElementById('you-image')
-var spotifyImage = document.getElementById('spotify-image')
-var yrImage = document.getElementById('yr-image')
-var youScore = document.getElementById('you-score')
-var spotifyScore = document.getElementById('spotify-score')
-var yrScore = document.getElementById('yr-score')
+var resultBox = document.getElementById('result');
+var titleBox = document.getElementById('title');
+var voteBox = document.getElementById('vote-box');
+var gifPanel = document.getElementById('gif-panel');
+var mainImage = document.getElementById('main-image');
+var youImage = document.getElementById('you-image');
+var spotifyImage = document.getElementById('spotify-image');
+var yrImage = document.getElementById('yr-image');
+var youScore = document.getElementById('you-score');
+var spotifyScore = document.getElementById('spotify-score');
+var yrScore = document.getElementById('yr-score');
 
 // this is how you replace the image from the background
-mainImage.style.backgroundImage = "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)"
+// mainImage.style.backgroundImage = "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)"
 
 // this is how we hide the resultBox element
 resultBox.hidden = true;
 
 // this is how you create a function
-function testClickFunction(){
-  alert('clickedddd')
+function hideResultBox() {
+  mainImage.style.backgroundImage = "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)"
+}
+function showResultBox(){
+  mainImage.style.backgroundImage = "url(https://i.giphy.com/media/wAxlCmeX1ri1y/giphy.gif)"
 }
 
+function blahFunction(){
+  mainImage.style.backgroundImage = "url(https://i.giphy.com/media/xe9csf50g4SqY/giphy.gif)"
+}
 // Activity today will be
+var thisANumber = 0
+thisANumber = 10
+thisANumber = 1000
+thisANumber = thisANumber + 1000
 
 // 1. Create a variable to store the user selected Rating  userRating
 // 2. Create 10 different functions to update the userRating score
