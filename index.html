@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
   <style>
-  .header{
-    background-color: #333333;
-  }
+    .header {
+      background-color: #333333;
+    }
   </style>
 
 </head>
@@ -21,7 +21,7 @@
   <header class="container py-2 mb-2 header">
     <div class="row flex-nowrap justify-content-between align-items-center">
       <div class="col-4">
-        <img class="img-fluid" src ="YRlogo_medium.png">
+        <img class="img-fluid" src="YRlogo_medium.png">
       </div>
       <div class="col-4 text-center">
         <span class="text-white">Teens vs Spotify</span>
@@ -57,9 +57,9 @@
           </div>
 
           <div class="col-8">
-              <div class = "row">
-                <div class = "col-12">
-                  <input id="range" class="range-style" type="range" min="1" max="10" step="1" oninput="sliderChange()"  />
+            <div class="row">
+              <div class="col-12">
+                <input id="range" class="range-style" type="range" min="1" max="10" step="1" oninput="sliderChange()" />
               </div>
             </div>
           </div>
@@ -68,43 +68,46 @@
             <img class="img-fluid img-limit" src="images/1f483.svg">
           </div>
 
-          <div class="col-2">
-            <output id="output" for="range">
         </div>
-      </div>
-      <div class="col-md-12 text-center">
-        <div class="">
-          <a id="result-button" href="#" class="btn btn-primary" role="button" onclick="onClick()" aria-pressed="true">Compare</a>
+        <div class="col-md-12">
+          <div class="row">
+            <a id="result-button" href="#" class="btn btn-primary text-center" role="button" onclick="onClick('results')" aria-pressed="true">Compare</a>
+          </div>
         </div>
+
       </div>
     </div>
 
     <div id="result" class="row no-gutters text-center">
-        <div class="col-4">
-          <div id="you-image" class="box-image you">
-            <div class="label">
-              YOU
-              <h1 id="you-score"> 10 </h1>
-            </div>
-          </div>
-        </div>
-        <div class="col-4">
-          <div id="spotify-image" class="box-image spotify">
-            <div class="label">
-              <img class="img-fluid img-limit" src="images/spotify.svg">
-              <h1 id="spotify-score"> 10 </h1>
-            </div>
-          </div>
-        </div>
-        <div class="col-4 yr">
-          <div id="yr-image" class ="box-image">
-            <div class="label">
-              <img class="img-fluid img-limit" src="images/yr.svg">
-              <h1 id="yr-score"> 10 </h1>
-            </div>
+      <div class="col-4">
+        <div id="you-image" class="box-image you">
+          <div class="label">
+            YOU
+            <h1 id="you-score"> 10 </h1>
           </div>
         </div>
       </div>
+      <div class="col-4">
+        <div id="spotify-image" class="box-image spotify">
+          <div class="label">
+            <img class="img-fluid img-limit" src="images/spotify.svg">
+            <h1 id="spotify-score"> 10 </h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 yr">
+        <div id="yr-image" class="box-image">
+          <div class="label">
+            <img class="img-fluid img-limit" src="images/yr.svg">
+            <h1 id="yr-score"> 10 </h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <a id="next-song" class="btn btn-primary text-center" role="button" onclick="onClick('vote')" aria-pressed="true"> Next Song</a>
+        <a id="finish" class="btn btn-primary text-center" role="button" onclick="onClick()" aria-pressed="true">Finish</a>
+      </div>
+    </div>
   </main>
 
 
