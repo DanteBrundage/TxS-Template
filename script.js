@@ -30,6 +30,8 @@ var resultButton = document.getElementById('result-button');
 var nextSongButton = document.getElementById('next-song');
 var finishButton = document.getElementById('finish');
 var pleaseVote = document.getElementById('vote-box');
+var songTitle = document.getElementById('title');
+
 var gifs = [
   "url(https://i.giphy.com/media/BCXMSiVZeo8xy/giphy.gif)",
   "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)",
@@ -63,13 +65,35 @@ var colors = [
 var spotifyScores = [2,4,8];
 var userRatings = [];
 var iframeElement = document.querySelector("#song-iframe"); //select Iframe
-
 var slider = document.getElementById("range");
 var progress = 0;
+var SongInfo = [
+  {
+SONG:"spotify:track:0KhM1c2bkqEAdxydjmZQPs",
+SRATE:2,
+TITLE:"First Light",
+ARTIST:"Hidden Orchestra",
+URATINGS: null
+},
+{
+  SONG:"spotify:track:2vmGgEn95r2rNAzN5v3h4X",
+  SRATE:4,
+  TITLE:"Homebody",
+  ARTIST:"Nai Palm",
+  URATINGS: null
+},
+{
+  SONG:"spotify:track:0NVNmybggOg7HqjcxCkvpq",
+  SRATE:8,
+  TITLE:"Macho",
+  ARTIST:"Jaakko Eino Kalevi",
+  URATINGS: null
+}
+]
+songTitle.innerHTML = "<h1> How <span class='s'> <em> 'dancible'</em></span> is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "? </h1>";
 
-
-iframeElement.src = getSpotifySrc(songs[progress])
-setAlbumCover(songs[progress] , mainImage)
+iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
+setAlbumCover(SongInfo[progress].SONG , mainImage)
 
 
 //mainImage.style.backgroundImage = "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)"
@@ -96,7 +120,6 @@ var userRating;
 function gifFunction(rate) {
   userRating = rate
   mainImage.style.backgroundImage = gifs[userRating - 1];
-
   gifPanel.style.background = colors[userRating - 1];
 }
 
@@ -115,7 +138,7 @@ function sliderChange()
 function onClick(page) {
   if ( page == "results") {
   userRatings.push(slider.value);
-  spotifyScore.innerHTML = spotifyScores[progress];
+  spotifyScore.innerHTML = SongInfo[progress].SRATE;
   youScore.innerHTML = userRating;
   gifPanel.hidden = true;
   resultBox.hidden = false;
@@ -129,12 +152,13 @@ function onClick(page) {
     finishButton.hidden = true;
   }
   youImage.style.backgroundImage = gifs[userRating - 1];
-  spotifyImage.style.backgroundImage = gifs[spotifyScores[progress] - 1];
+  spotifyImage.style.backgroundImage = gifs[(SongInfo[progress].SRATE) - 1];
   progress += 1;
   console.log("user has completed: " + progress + " songs");
   console.log(userRatings);
 
   }
+
   else
   {
     userRating = null;
@@ -142,9 +166,10 @@ function onClick(page) {
     gifPanel.style.background = 'white';
     youScore.innerHTML = userRating;
     gifPanel.hidden = false;
+    songTitle.innerHTML = "How Dancible is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "?";
     resultBox.hidden = true;
-    iframeElement.src = getSpotifySrc(songs[progress]);
-    setAlbumCover(songs[progress] , mainImage);
+    iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
+    setAlbumCover(SongInfo[progress].SONG , mainImage);
 
   }
 }
