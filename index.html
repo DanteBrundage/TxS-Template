@@ -36,6 +36,11 @@
       <div id="title" class="col-md-12 text-center">
         <h1> How Dancible is God's Plan by Drake?</h1>
       </div>
+      <div class="row">
+        <div class=" col-md-12 text-center mt-3">
+          <h5>Song <span id="Progress">1</span> of <span id="quizLength">0</span></h5>
+        </div>
+      </div>
     </div>
 
     <div id="gif-panel" class="row">
@@ -64,13 +69,17 @@
             </div>
           </div>
 
-          <div class="col-2">
+          <div class="col-1">
             <img class="img-fluid img-limit" src="images/1f483.svg">
           </div>
 
+          <div class="col-1">
+            <span id="scoreText">0<span>
+          </div>
+
         </div>
-        <div class="col-md-12">
-          <div class="row">
+        <div class="col-md-12 text-center mt-3">
+          <div class="">
             <a id="result-button" href="#" class="btn btn-primary text-center" role="button" onclick="onClick('results')" aria-pressed="true">Compare</a>
           </div>
         </div>
@@ -105,7 +114,7 @@
       </div>
       <div class="col-12">
         <a id="next-song" class="btn btn-primary text-center" role="button" onclick="onClick('vote')" aria-pressed="true"> Next Song</a>
-        <a id="finish" class="btn btn-primary text-center" role="button" onclick="onClick()" aria-pressed="true">Finish</a>
+        <a id="finish" class="btn btn-primary text-center" role="button" onclick="onClick('finish')" aria-pressed="true">Finish</a>
       </div>
     </div>
   </main>

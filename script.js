@@ -31,6 +31,9 @@ var nextSongButton = document.getElementById('next-song');
 var finishButton = document.getElementById('finish');
 var pleaseVote = document.getElementById('vote-box');
 var songTitle = document.getElementById('title');
+var scoreText = document.getElementById('scoreText');
+var publicProgress = document.getElementById('Progress');
+var lengthQuiz = document.getElementById('quizLength');
 
 var gifs = [
   "url(https://i.giphy.com/media/BCXMSiVZeo8xy/giphy.gif)",
@@ -91,6 +94,14 @@ URATINGS: null
 }
 ]
 songTitle.innerHTML = "<h1> How <span class='s'> <em> 'dancible'</em></span> is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "? </h1>";
+if(progress == 0){
+  publicProgress.innerHTML = progress+1;
+}
+else { // not working!!!!!!!!!
+  publicProgress.innerHTML = progress-1;
+}
+
+lengthQuiz.innerHTML = SongInfo.length;
 
 iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
 setAlbumCover(SongInfo[progress].SONG , mainImage)
@@ -129,6 +140,7 @@ function gifFunction(rate) {
 function sliderChange()
 {
   userRating = slider.value;
+  scoreText.innerHTML = userRating;
   mainImage.style.backgroundImage = gifs[userRating - 1];
   gifPanel.style.background = colors[userRating - 1];
   resultButton.hidden = false;
@@ -142,7 +154,7 @@ function onClick(page) {
   youScore.innerHTML = userRating;
   gifPanel.hidden = true;
   resultBox.hidden = false;
-  if(userRatings.length == spotifyScores.length){
+  if( progress == (SongInfo.length - 1)){
     nextSongButton.hidden = true;
     finishButton.hidden = false;
   }
@@ -158,7 +170,13 @@ function onClick(page) {
   console.log(userRatings);
 
   }
+  else if(page == "finish")
+  {
+    resultBox.hidden = true;
+    gifPanel.hidden = true;
+    songTitle.hidden = true;
 
+  }
   else
   {
     userRating = null;
