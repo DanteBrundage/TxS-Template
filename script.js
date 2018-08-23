@@ -34,6 +34,9 @@ var songTitle = document.getElementById('title');
 var scoreText = document.getElementById('scoreText');
 var publicProgress = document.getElementById('Progress');
 var lengthQuiz = document.getElementById('quizLength');
+var FinalResults = document.getElementById('end-result');
+var completeProgress = document.getElementById('completeProgress');
+var finalResultText = document.getElementById('final-result-text');
 
 var gifs = [
   "url(https://i.giphy.com/media/BCXMSiVZeo8xy/giphy.gif)",
@@ -65,46 +68,41 @@ var colors = [
   '#7ff4bd',
   '#dd11b5'
 ];
-var spotifyScores = [2,4,8];
+var spotifyScores = [2, 4, 8];
 var userRatings = [];
 var iframeElement = document.querySelector("#song-iframe"); //select Iframe
 var slider = document.getElementById("range");
 var progress = 0;
-var SongInfo = [
+var SongInfo = [{
+    SONG: "spotify:track:0KhM1c2bkqEAdxydjmZQPs",
+    SRATE: 2,
+    TITLE: "First Light",
+    ARTIST: "Hidden Orchestra",
+    URATINGS: null
+  },
   {
-SONG:"spotify:track:0KhM1c2bkqEAdxydjmZQPs",
-SRATE:2,
-TITLE:"First Light",
-ARTIST:"Hidden Orchestra",
-URATINGS: null
-},
-{
-  SONG:"spotify:track:2vmGgEn95r2rNAzN5v3h4X",
-  SRATE:4,
-  TITLE:"Homebody",
-  ARTIST:"Nai Palm",
-  URATINGS: null
-},
-{
-  SONG:"spotify:track:0NVNmybggOg7HqjcxCkvpq",
-  SRATE:8,
-  TITLE:"Macho",
-  ARTIST:"Jaakko Eino Kalevi",
-  URATINGS: null
-}
+    SONG: "spotify:track:2vmGgEn95r2rNAzN5v3h4X",
+    SRATE: 4,
+    TITLE: "Homebody",
+    ARTIST: "Nai Palm",
+    URATINGS: null
+  },
+  {
+    SONG: "spotify:track:0NVNmybggOg7HqjcxCkvpq",
+    SRATE: 8,
+    TITLE: "Macho",
+    ARTIST: "Jaakko Eino Kalevi",
+    URATINGS: null
+  }
 ]
 songTitle.innerHTML = "<h1> How <span class='s'> <em> 'dancible'</em></span> is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "? </h1>";
-if(progress == 0){
-  publicProgress.innerHTML = progress+1;
-}
-else { // not working!!!!!!!!!
-  publicProgress.innerHTML = progress-1;
-}
+publicProgress.innerHTML = progress + 1;
+
 
 lengthQuiz.innerHTML = SongInfo.length;
 
 iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
-setAlbumCover(SongInfo[progress].SONG , mainImage)
+setAlbumCover(SongInfo[progress].SONG, mainImage)
 
 
 //mainImage.style.backgroundImage = "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)"
@@ -113,6 +111,9 @@ setAlbumCover(SongInfo[progress].SONG , mainImage)
 resultBox.hidden = true;
 resultButton.hidden = true;
 pleaseVote.hidden = false;
+FinalResults.hidden = true;
+completeProgress.hidden = false;
+
 
 // this is how you create a function
 function testClickFunction() {
@@ -137,8 +138,7 @@ function gifFunction(rate) {
 // 3. Add the functions to the correpondent HTML elements, using the onclick="functionName()" attribute
 // 4. Create a function to process the click on Compare button
 
-function sliderChange()
-{
+function sliderChange() {
   userRating = slider.value;
   scoreText.innerHTML = userRating;
   mainImage.style.backgroundImage = gifs[userRating - 1];
@@ -147,35 +147,57 @@ function sliderChange()
   pleaseVote.hidden = true;
 }
 
-function onClick(page) {
-  if ( page == "results") {
-  userRatings.push(slider.value);
-  spotifyScore.innerHTML = SongInfo[progress].SRATE;
-  youScore.innerHTML = userRating;
-  gifPanel.hidden = true;
-  resultBox.hidden = false;
-  if( progress == (SongInfo.length - 1)){
-    nextSongButton.hidden = true;
-    finishButton.hidden = false;
-  }
-  else
-  {
-    nextSongButton.hidden = false;
-    finishButton.hidden = true;
-  }
-  youImage.style.backgroundImage = gifs[userRating - 1];
-  spotifyImage.style.backgroundImage = gifs[(SongInfo[progress].SRATE) - 1];
-  progress += 1;
-  console.log("user has completed: " + progress + " songs");
-  console.log(userRatings);
 
+var myResult;
+
+function Score() {
+  myResult = Math.abs((SongInfo[0].URATINGS - SongInfo[0].SRATE) + (SongInfo[1].URATINGS - SongInfo[1].SRATE) + (SongInfo[2].URATINGS - SongInfo[2].SRATE));
+  myResult /= SongInfo.length;
+  if (myResult => 0 && myResult < 3) {
+    // Heart thing "best friends"
+  } else if (myResult => 3 && myResult < 5) {
+    // Yah cool, could dance together
+  } else {
+    // Nah, just walk away
   }
-  else if(page == "finish")
-  {
+
+}
+
+function onClick(page) {
+  if (page == "results") {
+    userRatings.push(slider.value);
+    spotifyScore.innerHTML = SongInfo[progress].SRATE;
+    youScore.innerHTML = userRating;
+    gifPanel.hidden = true;
+    resultBox.hidden = false;
+    if (progress == (SongInfo.length - 1)) {
+      nextSongButton.hidden = true;
+      finishButton.hidden = false;
+    } else {
+      nextSongButton.hidden = false;
+      finishButton.hidden = true;
+    }
+    youImage.style.backgroundImage = gifs[userRating - 1];
+    spotifyImage.style.backgroundImage = gifs[(SongInfo[progress].SRATE) - 1];
+    progress += 1;
+    console.log("user has completed: " + progress + " songs");
+    console.log(userRatings);
+
+  } else if (page == "finish") {
     resultBox.hidden = true;
     gifPanel.hidden = true;
     songTitle.hidden = true;
+    Score();
+    FinalResults.hidden = false;
+    completeProgress.hidden = true;
+    finalResultText.innerHTML = Math.round(myResult);
 
+  }
+  else if(page="try-again"){
+    resultBox.hidden = true;
+    gifPanel.hidden = false;
+    songTitle.hidden = false;
+    completeProgress.hidden = false;
   }
   else
   {
@@ -186,11 +208,14 @@ function onClick(page) {
     gifPanel.hidden = false;
     songTitle.innerHTML = "How Dancible is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "?";
     resultBox.hidden = true;
+    publicProgress.innerHTML = progress + 1;
     iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
-    setAlbumCover(SongInfo[progress].SONG , mainImage);
+    setAlbumCover(SongInfo[progress].SONG, mainImage);
 
   }
 }
+
+
 
 
 
@@ -212,7 +237,7 @@ function getSpotifySrc(song) {
   return `https://open.spotify.com/embed/track/${songCode}`;
 }
 
-async function setAlbumCover(song, element){
+async function setAlbumCover(song, element) {
   var aa = await getAlbumCover(song);
   element.style.backgroundImage = `url(${aa})`;
 }
