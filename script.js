@@ -37,7 +37,7 @@ var lengthQuiz = document.getElementById('quizLength');
 var FinalResults = document.getElementById('end-result');
 var completeProgress = document.getElementById('completeProgress');
 var finalResultText = document.getElementById('final-result-text');
-
+var finalResultsImg = document.getElementById('final-result-image');
 var gifs = [
   "url(https://i.giphy.com/media/BCXMSiVZeo8xy/giphy.gif)",
   "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)",
@@ -151,14 +151,20 @@ function sliderChange() {
 var myResult;
 
 function Score() {
-  myResult = Math.abs((SongInfo[0].URATINGS - SongInfo[0].SRATE) + (SongInfo[1].URATINGS - SongInfo[1].SRATE) + (SongInfo[2].URATINGS - SongInfo[2].SRATE));
+  myResult = Math.abs(SongInfo[0].URATINGS - SongInfo[0].SRATE) +
+             Math.abs(SongInfo[1].URATINGS - SongInfo[1].SRATE) +
+             Math.abs(SongInfo[2].URATINGS - SongInfo[2].SRATE);
   myResult /= SongInfo.length;
-  if (myResult => 0 && myResult < 3) {
-    // Heart thing "best friends"
-  } else if (myResult => 3 && myResult < 5) {
-    // Yah cool, could dance together
+  console.log(myResult);
+  if (myResult >= 0 && myResult < 2.5) {
+    finalResultText.innerHTML = "Should totally dance together";
+    finalResultsImg.src = "http://www.animatedimages.org/data/media/107/animated-dancing-image-0038.gif";
+  } else if (myResult >= 2.5 && myResult < 5) {
+    finalResultText.innerHTML = "Could dance together";
+  } else if (myResult >= 5.0 && myResult < 7.5) {
+    finalResultText.innerHTML = "Shouldn't dance together";
   } else {
-    // Nah, just walk away
+    finalResultText.innerHTML = "At different parties";
   }
 
 }
@@ -190,17 +196,22 @@ function onClick(page) {
     Score();
     FinalResults.hidden = false;
     completeProgress.hidden = true;
-    finalResultText.innerHTML = Math.round(myResult);
 
-  }
-  else if(page="try-again"){
-    resultBox.hidden = true;
+  } else if (page == "try-again") {
+    userRating = null;
+    progress = 0;
+    resultButton.hidden = true;
+    gifPanel.style.background = 'white';
+    youScore.innerHTML = userRating;
     gifPanel.hidden = false;
-    songTitle.hidden = false;
+    songTitle.innerHTML = "How Dancible is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "?";
+    resultBox.hidden = true;
+    publicProgress.innerHTML = progress + 1;
+    iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
+    setAlbumCover(SongInfo[progress].SONG, mainImage);
     completeProgress.hidden = false;
-  }
-  else
-  {
+    FinalResults.hidden = true;
+  } else {
     userRating = null;
     resultButton.hidden = true;
     gifPanel.style.background = 'white';
