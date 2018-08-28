@@ -157,21 +157,24 @@ function Score() {
   myResult /= SongInfo.length;
   console.log(myResult);
   if (myResult >= 0 && myResult < 2.5) {
-    finalResultText.innerHTML = "Should totally dance together";
+    finalResultText.innerHTML = " Should totally dance together";
     finalResultsImg.src = "http://www.animatedimages.org/data/media/107/animated-dancing-image-0038.gif";
   } else if (myResult >= 2.5 && myResult < 5) {
-    finalResultText.innerHTML = "Could dance together";
+    finalResultText.innerHTML = " Could dance together";
+    finalResultsImg.src = "https://i.kym-cdn.com/photos/images/newsfeed/000/507/752/008.gif";
   } else if (myResult >= 5.0 && myResult < 7.5) {
-    finalResultText.innerHTML = "Shouldn't dance together";
+    finalResultText.innerHTML = " Shouldn't dance together";
   } else {
     finalResultText.innerHTML = "At different parties";
   }
+
+  //finalResultText.innerHTML = SongInfo[0].URATINGS + "/" + SongInfo[0].SRATE + "/" + SongInfo[1].URATINGS + "/" + SongInfo[1].SRATE + "/" + SongInfo[2].URATINGS + "/" + SongInfo[2].SRATE;
 
 }
 
 function onClick(page) {
   if (page == "results") {
-    userRatings.push(slider.value);
+    SongInfo[progress].URATINGS = slider.value;
     spotifyScore.innerHTML = SongInfo[progress].SRATE;
     youScore.innerHTML = userRating;
     gifPanel.hidden = true;
