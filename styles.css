@@ -1,6 +1,8 @@
-/* * {
+ /* div {
   border: 1px black solid;
-} */
+}  */
+
+
 .iframe-circle {
   left: 0%;
   bottom: 0%;
@@ -82,4 +84,7 @@
 
 .s{
   color:#3cbdc0;
+}
+.scoreText{
+  font-size: 30px
 }

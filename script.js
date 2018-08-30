@@ -38,6 +38,7 @@ var FinalResults = document.getElementById('end-result');
 var completeProgress = document.getElementById('completeProgress');
 var finalResultText = document.getElementById('final-result-text');
 var finalResultsImg = document.getElementById('final-result-image');
+var dancibleText = document.getElementById('dancible-text');
 var gifs = [
   "url(https://i.giphy.com/media/BCXMSiVZeo8xy/giphy.gif)",
   "url(https://i.giphy.com/media/1d5KHhOA1oTpX7ROOi/giphy.gif)",
@@ -95,7 +96,7 @@ var SongInfo = [{
     URATINGS: null
   }
 ]
-songTitle.innerHTML = "<h1> How <span class='s'> <em> 'dancible'</em></span> is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "? </h1>";
+songTitle.innerHTML = "<h1> How <span class='s' id='a'> <em>'dancible'</em></span> is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "? </h1>";
 publicProgress.innerHTML = progress + 1;
 
 
@@ -140,11 +141,14 @@ function gifFunction(rate) {
 
 function sliderChange() {
   userRating = slider.value;
-  scoreText.innerHTML = userRating;
+  // scoreText.innerHTML = userRating;
   mainImage.style.backgroundImage = gifs[userRating - 1];
   gifPanel.style.background = colors[userRating - 1];
+  songTitle.style.color = pink;
   resultButton.hidden = false;
-  pleaseVote.hidden = true;
+  pleaseVote.innerHTML = "<h1 class='display-3 '>" + userRating + "</h1>";
+  pleaseVote.hidden = false;
+
 }
 
 
@@ -157,23 +161,25 @@ function Score() {
   myResult /= SongInfo.length;
   console.log(myResult);
   if (myResult >= 0 && myResult < 2.5) {
-    finalResultText.innerHTML = " Should totally dance together";
+    finalResultText.innerHTML =   " Should totally dance together";
     finalResultsImg.src = "http://www.animatedimages.org/data/media/107/animated-dancing-image-0038.gif";
   } else if (myResult >= 2.5 && myResult < 5) {
     finalResultText.innerHTML = " Could dance together";
     finalResultsImg.src = "https://i.kym-cdn.com/photos/images/newsfeed/000/507/752/008.gif";
   } else if (myResult >= 5.0 && myResult < 7.5) {
-    finalResultText.innerHTML = " Shouldn't dance together";
+    finalResultText.innerHTML =  "  Shouldn't dance together";
+    finalResultsImg.src = 'https://media.tenor.com/images/70c111906d4a30bbec8c1d8a432b0784/tenor.gif';
   } else {
     finalResultText.innerHTML = "At different parties";
   }
 
-  //finalResultText.innerHTML = SongInfo[0].URATINGS + "/" + SongInfo[0].SRATE + "/" + SongInfo[1].URATINGS + "/" + SongInfo[1].SRATE + "/" + SongInfo[2].URATINGS + "/" + SongInfo[2].SRATE;
+  // finalResultText.innerHTML = SongInfo[0].URATINGS + "/" + SongInfo[0].SRATE + "/" + SongInfo[1].URATINGS + "/" + SongInfo[1].SRATE + "/" + SongInfo[2].URATINGS + "/" + SongInfo[2].SRATE;
 
 }
 
 function onClick(page) {
   if (page == "results") {
+    pleaseVote.hidden = true;
     SongInfo[progress].URATINGS = slider.value;
     spotifyScore.innerHTML = SongInfo[progress].SRATE;
     youScore.innerHTML = userRating;
@@ -193,6 +199,7 @@ function onClick(page) {
     console.log(userRatings);
 
   } else if (page == "finish") {
+    pleaseVote.hidden = true;
     resultBox.hidden = true;
     gifPanel.hidden = true;
     songTitle.hidden = true;
@@ -201,6 +208,7 @@ function onClick(page) {
     completeProgress.hidden = true;
 
   } else if (page == "try-again") {
+    pleaseVote.hidden = true;
     userRating = null;
     progress = 0;
     resultButton.hidden = true;
@@ -215,6 +223,7 @@ function onClick(page) {
     completeProgress.hidden = false;
     FinalResults.hidden = true;
   } else {
+    pleaseVote.hidden = true;
     userRating = null;
     resultButton.hidden = true;
     gifPanel.style.background = 'white';
