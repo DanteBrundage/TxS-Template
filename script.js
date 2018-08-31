@@ -177,6 +177,7 @@ function Score() {
     finalResultsImg.src = 'https://media.tenor.com/images/70c111906d4a30bbec8c1d8a432b0784/tenor.gif';
   } else {
     finalResultText.innerHTML = "At different parties";
+    finalResultImg.src = 'https://media2.giphy.com/media/vUhWXgUkjSR0I/200w.gif';
   }
 
   // finalResultText.innerHTML = SongInfo[0].URATINGS + "/" + SongInfo[0].SRATE + "/" + SongInfo[1].URATINGS + "/" + SongInfo[1].SRATE + "/" + SongInfo[2].URATINGS + "/" + SongInfo[2].SRATE;
@@ -219,6 +220,7 @@ function onClick(page) {
   } else if (page == "try-again") {
     pleaseVote.hidden = true;
     completeTitle.hidden = false;
+    dancibleText.hidden = false;
     userRating = null;
     progress = 0;
     songTitle.hidden = false;
@@ -228,7 +230,7 @@ function onClick(page) {
     gifPanel.hidden = false;
     dancibleTextColor = "#3cbdc0";
     dancibleText.style.color = dancibleTextColor;
-    songTitle.innerHTML = SongInfo[progress].TITLE + 'by' + SongInfo[progress].ARTIST ;
+    songTitle.innerHTML = SongInfo[progress].TITLE + ' by ' + SongInfo[progress].ARTIST ;
     resultBox.hidden = true;
     publicProgress.innerHTML = progress + 1;
     iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
