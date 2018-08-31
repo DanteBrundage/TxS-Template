@@ -30,11 +30,12 @@ var resultButton = document.getElementById('result-button');
 var nextSongButton = document.getElementById('next-song');
 var finishButton = document.getElementById('finish');
 var pleaseVote = document.getElementById('vote-box');
-var songTitle = document.getElementById('title');
+var songTitle = document.getElementById('dancible-title');
 var scoreText = document.getElementById('scoreText');
 var publicProgress = document.getElementById('Progress');
 var lengthQuiz = document.getElementById('quizLength');
 var FinalResults = document.getElementById('end-result');
+completeTitle = document.getElementById('title');
 var completeProgress = document.getElementById('completeProgress');
 var finalResultText = document.getElementById('final-result-text');
 var finalResultsImg = document.getElementById('final-result-image');
@@ -57,6 +58,10 @@ var songs = [
   "spotify:track:2vmGgEn95r2rNAzN5v3h4X", // Homebody
   "spotify:track:0NVNmybggOg7HqjcxCkvpq"
 ];
+
+dancibleText.innerHTML = "<em>'dancible'<em>";
+var dancibleTextColor = "#3cbdc0";
+dancibleText.style.color = dancibleTextColor;
 var colors = [
   '#4286f4',
   '#4286f4',
@@ -96,7 +101,7 @@ var SongInfo = [{
     URATINGS: null
   }
 ]
-songTitle.innerHTML = "<h1> How <span class='s' id='a'> <em>'dancible'</em></span> is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "? </h1>";
+//songTitle.innerHTML = "<h1> How <span id='dancible-text'> <em>'dancible'</em></span> is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "? </h1>";
 publicProgress.innerHTML = progress + 1;
 
 
@@ -144,10 +149,11 @@ function sliderChange() {
   // scoreText.innerHTML = userRating;
   mainImage.style.backgroundImage = gifs[userRating - 1];
   gifPanel.style.background = colors[userRating - 1];
-  songTitle.style.color = pink;
   resultButton.hidden = false;
   pleaseVote.innerHTML = "<h1 class='display-3 '>" + userRating + "</h1>";
   pleaseVote.hidden = false;
+  dancibleTextColor = colors[userRating -1];
+  dancibleText.style.color = dancibleTextColor;
 
 }
 
@@ -203,34 +209,44 @@ function onClick(page) {
     resultBox.hidden = true;
     gifPanel.hidden = true;
     songTitle.hidden = true;
+    dancibleText.hidden = true;
+    completeTitle.hidden = true;
+
     Score();
     FinalResults.hidden = false;
     completeProgress.hidden = true;
 
   } else if (page == "try-again") {
     pleaseVote.hidden = true;
+    completeTitle.hidden = false;
     userRating = null;
     progress = 0;
+    songTitle.hidden = false;
     resultButton.hidden = true;
     gifPanel.style.background = 'white';
     youScore.innerHTML = userRating;
     gifPanel.hidden = false;
-    songTitle.innerHTML = "How Dancible is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "?";
+    dancibleTextColor = "#3cbdc0";
+    dancibleText.style.color = dancibleTextColor;
+    songTitle.innerHTML = SongInfo[progress].TITLE + 'by' + SongInfo[progress].ARTIST ;
     resultBox.hidden = true;
     publicProgress.innerHTML = progress + 1;
     iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
     setAlbumCover(SongInfo[progress].SONG, mainImage);
     completeProgress.hidden = false;
     FinalResults.hidden = true;
+
   } else {
     pleaseVote.hidden = true;
     userRating = null;
     resultButton.hidden = true;
+    resultBox.hidden = true;
     gifPanel.style.background = 'white';
     youScore.innerHTML = userRating;
     gifPanel.hidden = false;
-    songTitle.innerHTML = "How Dancible is " + SongInfo[progress].TITLE + " by " + SongInfo[progress].ARTIST + "?";
-    resultBox.hidden = true;
+    dancibleTextColor = "#3cbdc0";
+    dancibleText.style.color = dancibleTextColor;
+    songTitle.innerHTML = SongInfo[progress].TITLE + ' by ' + SongInfo[progress].ARTIST ;
     publicProgress.innerHTML = progress + 1;
     iframeElement.src = getSpotifySrc(SongInfo[progress].SONG);
     setAlbumCover(SongInfo[progress].SONG, mainImage);
